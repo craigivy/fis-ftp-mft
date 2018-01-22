@@ -37,7 +37,7 @@ The example can be run as a standalone SpringBoot instance by executing:
 
 To build to the project:
 ```
-    mvn -s support/settings.xml clean package docker:build   
+    mvn -s support/sample-settings.xml clean package docker:build   
         
     docker run -t example/fis-ftp-mft
 ```
@@ -62,5 +62,5 @@ Once the application has started up successfully, in any web browser, go to `loc
 
 To deploy to the project:
 ```
-    mvn -s support/settings.xml fabric8:deploy
+    mvn -s support/sample-settings.xml fabric8:deploy
 ```
