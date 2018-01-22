@@ -17,8 +17,10 @@ The following are required to run this project:
 
 2. The example can be built with
 
+```
     mvn -s support/sample-settings.xml clean install
-    
+```
+
 Additionally, please ensure the following has been configured:
 
 (1) Update `/src/main/resources/application.properties` with the necessary credentials for the external SFTP server
@@ -27,24 +29,27 @@ Additionally, please ensure the following has been configured:
 
 The example can be run as a standalone SpringBoot instance by executing:
 
-	mvn -s support/settings.xml spring-boot:run
+```
+	mvn -s support/sample-settings.xml spring-boot:run
+```
 
 ### Running the example in Docker
 
 To build to the project:
-
+```
     mvn -s support/settings.xml clean package docker:build   
         
     docker run -t example/fis-ftp-mft
+```
      
 Copy a file over to your SFTP server to test the flow.
 
 After you've finished running the docker example, be sure to tidy up:
-
+```
      docker ps (to obtain the container ID)
      docker stop <container ID>
      docker rm <container ID>
-     
+```     
 ### Viewing the Fuse Management Console (HawtIO)
 
 Once the application has started up successfully, in any web browser, go to `localhost:8080/hawtio/index.html` and select the Camel tab. You should see your Camel Routes running.
