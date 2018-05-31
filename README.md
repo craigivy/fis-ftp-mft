@@ -64,3 +64,10 @@ To deploy to the project:
 ```
     mvn -s support/sample-settings.xml fabric8:deploy
 ```
+
+## Running SFTP server in docker
+```
+docker pull atmoz/sftp
+docker run -p 22:22 -d atmoz/sftp foo:pass:::upload
+
+```
