@@ -52,7 +52,7 @@ After you've finished running the docker example, be sure to tidy up:
 ```     
 ### Viewing the Fuse Management Console (HawtIO)
 
-Once the application has started up successfully, in any web browser, go to `localhost:8080/hawtio/index.html` and select the Camel tab. You should see your Camel Routes running.
+Once the application has started up successfully, in any web browser, go to `localhost:8080/hawtio/index.html`.  The only change you should need to make to the default connection is changing the port to `8081`.  Select the Camel tab and you should see your Camel Routes running.
 
 ### Running the example on OpenShift
 
