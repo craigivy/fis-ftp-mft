@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd            http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <route id="pull-sftp-file">
-            <from id="sftp-pull" uri="sftp://{{sftp.host}}:{{sftp.port}}/upload/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;move=.done&amp;moveFailed=.error"/>
+            <from id="sftp-pull" uri="sftp://{{sftp.host}}:{{sftp.port}}/upload/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;move=.done&amp;moveFailed=.error&amp;recursive=true"/>
             <to id="_to10" uri="file:data/out"/>
             <log id="_log1" message="Processed ${headers.CamelFileName} from remote FTP"/>
         </route>
