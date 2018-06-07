@@ -68,7 +68,7 @@ To deploy to the project:
 ## Running SFTP server in docker
 ```
     docker pull atmoz/sftp
-    docker run -p 22:22 -d atmoz/sftp foo:pass:::upload
+    docker run -p 22:22 -d atmoz/sftp foo:pass:1000
 ```
 
 ## Test

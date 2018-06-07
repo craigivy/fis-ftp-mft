@@ -6,8 +6,13 @@
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <route id="pull-sftp-file">
             <from id="sftp-pull" uri="sftp://{{sftp.host}}:{{sftp.port}}/upload/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;move=.done&amp;moveFailed=.error&amp;recursive=true"/>
-            <to id="_to10" uri="file:data/out"/>
+            <to id="_to10" uri="file:data/in?fileName=$simple{file:parent}-$simple{file:onlyname.noext}-$simple{date:now:yyyy-MM-dd HH:mm:ss.SSSZ}.$simple{file:name.ext}&amp;flatten=true"/>
             <log id="_log1" message="Processed ${headers.CamelFileName} from remote FTP"/>
+        </route>
+        <route id="push-sftp-file">
+            <from id="file-out" uri="file:data/out?move=.done&amp;moveFailed=.error&amp;recursive=true"/>
+            <to id="sftp-push" uri="sftp://{{sftp.host}}:{{sftp.port}}/download/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;fileName=$simple{file:onlyname}-$simple{bean:java.lang.System?method=currentTimeMillis}.$simple{file:name.ext}&amp;flatten=true"/>
+            <log id="_log2" message="Processed ${headers.CamelFileName} from remote file"/>
         </route>
     </camelContext>
 </beans>
