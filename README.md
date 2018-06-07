@@ -68,16 +68,22 @@ To deploy to the project:
 ## Running SFTP server in docker
 ```
     docker pull atmoz/sftp
-    docker run -p 22:22 -d atmoz/sftp foo:pass:1000
+    docker run -p 22:22 -d atmoz/sftp foo:pass:::upload,download
 ```
 
 ## Test
 Log into sftp and put a file on the server. instructions below
 Note: pass in the second line is the password to enter when asked
+
+FTP to filesystem
 ```
     sftp foo@localhost
     pass
     cd upload
+    mkdir abc
     put pom.xml
 ```
+filesystem to ftp
+copy file into ```` ./data/out ````
+
 Fuse will pull the  file from the sftp server and put it in data/out
