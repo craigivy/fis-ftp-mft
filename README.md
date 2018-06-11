@@ -75,7 +75,8 @@ To deploy to the project:
 Log into sftp and put a file on the server. instructions below
 Note: pass in the second line is the password to enter when asked
 
-FTP to filesystem
+### FTP to filesystem
+Fuse will pull the file from the sftp server and put it in data/out
 ```
     sftp foo@localhost
     pass
@@ -83,7 +84,17 @@ FTP to filesystem
     mkdir abc
     put pom.xml
 ```
-filesystem to ftp
-copy file into ```` ./data/out ````
+### Filesystem to ftp
+Fuse will take the file from the filesystem and put it in the ftp servers ```download``` directory
 
-Fuse will pull the  file from the sftp server and put it in data/out
+### HTTP download
+files in the data/download directory are available for download.  Point your browser to http://localhost:9000/download/robot.png to download the robot.png that is in the download folder
+
+### HTTP upload
+Supports uploading files using a multipart request.  uploaded file are place in the ```data/upload``` folder
+
+#### Using curl
+```curl -F "pom.xml=@pom.xml" localhost:9000/upload```
+
+#### Using web page
+http://localhost:9000/uploader
