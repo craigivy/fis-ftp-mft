@@ -20,14 +20,12 @@
             <log id="_log2" message="Processed ${headers.CamelFileName} from remote file"/>
         </route>
         <route id="http-uploader">
-            <from uri="jetty:http://0.0.0.0:9000/uploader?enableCORS=true&amp;optionsEnabled=true"/>
+            <from uri="jetty:http://0.0.0.0:9000/uploader"/>
             <process ref="uploaderService"/>
-            <to uri="log:org.fusesource.test.camel-jetty-test?level=INFO&amp;showAll=true"/>
         </route>        
         <route id="http-upload">
-            <from uri="jetty:http://0.0.0.0:9000/upload?enableCORS=true&amp;optionsEnabled=true"/>
+            <from uri="jetty:http://0.0.0.0:9000/upload"/>
             <process ref="uploadService"/>
-            <to uri="log:org.fusesource.test.camel-jetty-test?level=INFO&amp;showAll=true"/>
         </route>        
     <route id="http-download">
         <from uri="jetty:http://0.0.0.0:9000/download?matchOnUriPrefix=true"/>

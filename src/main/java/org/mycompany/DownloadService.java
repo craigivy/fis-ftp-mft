@@ -39,9 +39,6 @@ public class DownloadService implements Processor {
             return;
         }
         InputStream pathStream = Files.newInputStream(path);
-        // InputStream pathStream = this.getClass().getResourceAsStream(formattedPath);
-        // Path path =
-        // FileSystems.getDefault().getPath(this.getClass().getResource(formattedPath).getPath());
         log.info("download file path:" + path.toString());
 
         try {

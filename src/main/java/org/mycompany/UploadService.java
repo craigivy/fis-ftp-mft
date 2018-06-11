@@ -28,19 +28,6 @@ public class UploadService implements Processor {
             DataHandler data = in.getAttachment(aName);
             if (data.getContentType() != null) {
 
-                // log.info(String.format("atachment name: %s, type: %s", data.getName(), data.getContentType()));
-                // log.info("ds name: " + data.getDataSource().getClass().getCanonicalName());
-                // log.info("ds name2: " + data.getDataSource().getName());
-
-                // for (String header : in.getHeaders().keySet()) {
-                //     log.info("in:" + header);
-                // }
-                // for (String header : exchange.getProperties().keySet()) {
-                //     log.info("ex: " + header);
-                // }
-                // log.info("in!:" + in.getHeader(aName).toString() );
-                // log.info("in!!:" + in.getHeader(aName + ".org.eclipse.jetty.servlet.contentType").toString() );
-                
                 InputStream is = data.getInputStream();
                 final String formattedPath = String.format("%s/data/upload/%s-%s", System.getProperty("user.dir"),
                         System.currentTimeMillis(), aName);
