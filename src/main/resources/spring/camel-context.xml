@@ -3,6 +3,11 @@
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:camel-cxf="http://camel.apache.org/schema/cxf"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd            http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd            http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+ 
+    <bean class="org.mycompany.UploadService" id="uploadService"/>
+    <bean class="org.mycompany.UploaderService" id="uploaderService"/>
+    <bean class="org.mycompany.DownloadService" id="downloadService"/>
+
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <route id="pull-sftp-file">
             <from id="sftp-pull" uri="sftp://{{sftp.host}}:{{sftp.port}}/upload/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;move=.done&amp;moveFailed=.error&amp;recursive=true"/>
@@ -14,5 +19,20 @@
             <to id="sftp-push" uri="sftp://{{sftp.host}}:{{sftp.port}}/download/?username={{sftp.user}}&amp;password={{sftp.password}}&amp;fileName=$simple{file:onlyname}-$simple{bean:java.lang.System?method=currentTimeMillis}.$simple{file:name.ext}&amp;flatten=true"/>
             <log id="_log2" message="Processed ${headers.CamelFileName} from remote file"/>
         </route>
+        <route id="http-uploader">
+            <from uri="jetty:http://0.0.0.0:9000/uploader?enableCORS=true&amp;optionsEnabled=true"/>
+            <process ref="uploaderService"/>
+            <to uri="log:org.fusesource.test.camel-jetty-test?level=INFO&amp;showAll=true"/>
+        </route>        
+        <route id="http-upload">
+            <from uri="jetty:http://0.0.0.0:9000/upload?enableCORS=true&amp;optionsEnabled=true"/>
+            <process ref="uploadService"/>
+            <to uri="log:org.fusesource.test.camel-jetty-test?level=INFO&amp;showAll=true"/>
+        </route>        
+    <route id="http-download">
+        <from uri="jetty:http://0.0.0.0:9000/download?matchOnUriPrefix=true"/>
+        <log logName="HTTP LOG" loggingLevel="INFO" message="HTTP REQUEST: ${in.header.bookid}"/>
+        <process ref="downloadService"/>
+    </route>
     </camelContext>
 </beans>
